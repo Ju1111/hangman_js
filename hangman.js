@@ -17,20 +17,27 @@ function showGuess(word, guesses) {
   rl.close()
 }
 
+function playAgain() {
+  rl.question('Do you want to play again (Y/N)? ', reply => {
+    if (reply === 'Y') {nextGuess('fancypants', [])}
+    else exit()
+  })
+}
+
 function isWinner(word, guesses) {
   if (wrongGuessCount(word, guesses) > 6) {
     console.log('You lost!')
-    exit()
+    playAgain()
   }
   if (word === showGuess(word,guesses)) {
     console.log('You won!')
-    exit()
+    playAgain()
   }
 }
 
 function skipDuplicate (word, guesses, answer) {
   if (guesses.includes(answer)) {
-    console.log('You have already guessed this letter wrong!')
+    console.log('You have already guessed this letter!')
     return true
   }
 }
