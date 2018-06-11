@@ -19,7 +19,7 @@ function showGuess(word, guesses) {
 
 function playAgain() {
   rl.question('Do you want to play again (Y/N)? ', reply => {
-    if (reply === 'Y') {nextGuess('fancypants', [])}
+    if (reply === 'Y' || reply === 'y') { nextGuess('fancypants', []) }
     else exit()
   })
 }
@@ -49,7 +49,7 @@ const rl = readline.createInterface({input:process.stdin, output:process.stdout}
 function nextGuess(word, guesses) {
     isWinner(word, guesses)
     // ask for the next letter
-    rl.question('next letter? ', answer => {
+    rl.question('Guess a letter ', answer => {
         console.log('player wrote:', answer)
         answer.trim()
         //wrong letter twice won't be counted the second time
@@ -61,4 +61,30 @@ function nextGuess(word, guesses) {
     })
 }
 
-nextGuess('sunflower', [])
+const word = ['sunflower',
+  'rose',
+  'lotus',
+  'hibiscus',
+  'daisy',
+  'tulip',
+  'jasmine',
+  'magnolia',
+  'chrysanthemum',
+  'orchids',
+  'aster',
+  'peony',
+  'clover',
+  'dandelion',
+  'lavender',
+  'chamomile',
+  'lily',
+  'gerbera',
+  'poppy',
+  ]
+
+const RandomWord = () => {
+  let newWord = word[Math.floor(Math.random() * word.length)]
+  return newWord
+}
+
+nextGuess(RandomWord(), [])
