@@ -35,10 +35,36 @@ function isWinner(word, guesses) {
   }
 }
 
-function skipDuplicate (guesses, answer) {
+function skipDuplicate(guesses, answer) {
   if (guesses.includes(answer)) {
     console.log('You have already guessed this letter!')
     return true
+  }
+}
+
+function printHangman(word, guesses) {
+  switch(wrongGuessCount(word, guesses)) {
+    case 1:
+      console.log('|------\n|\n|\n|\n|\n|')
+      break
+    case 2:
+      console.log('|------|\n|      O\n|\n|\n|\n|')
+      break
+    case 3:
+      console.log('|------|\n|      O\n|      |\n|      |\n|\n|')
+      break
+    case 4:
+      console.log('|------|\n|      O\n|     \\| \n|      |\n|\n|')
+      break
+    case 5:
+      console.log('|------|\n|      O\n|     \\|/ \n|      |\n|\n|')
+      break
+    case 6:
+      console.log('|------|\n|      O\n|     \\|/ \n|      |\n|     /\n|')
+      break
+    case 7:
+      console.log('|------|\n|      O\n|     \\|/ \n|      |\n|     / \\ \n|')
+      break
   }
 }
 
@@ -57,6 +83,7 @@ function nextGuess(word, guesses) {
         guesses.push(answer[0])
         console.log(showGuess(word, guesses))
         console.log('Number of wrong guesses: ' + wrongGuessCount(word, guesses))
+        printHangman(word, guesses)
         nextGuess(word, guesses)
     })
 }
