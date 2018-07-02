@@ -29,13 +29,13 @@ function isWinner(word, guesses) {
     console.log('You lost!')
     playAgain()
   }
-  if (word === showGuess(word,guesses)) {
+  if (word === showGuess(word, guesses)) {
     console.log('You won!')
     playAgain()
   }
 }
 
-function skipDuplicate (word, guesses, answer) {
+function skipDuplicate (guesses, answer) {
   if (guesses.includes(answer)) {
     console.log('You have already guessed this letter!')
     return true
@@ -53,7 +53,7 @@ function nextGuess(word, guesses) {
         console.log('player wrote:', answer)
         answer.trim()
         //wrong letter twice won't be counted the second time
-        if (skipDuplicate(word, guesses, answer)) return nextGuess(word, guesses)
+        if (skipDuplicate(guesses, answer)) return nextGuess(word, guesses)
         guesses.push(answer[0])
         console.log(showGuess(word, guesses))
         console.log('Number of wrong guesses: ' + wrongGuessCount(word, guesses))
