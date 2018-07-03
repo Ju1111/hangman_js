@@ -26,11 +26,11 @@ const playAgain = () => {
 
 const isWinner = (word, guesses) => {
   if (wrongGuessCount(word, guesses) > 6) {
-    console.log('You lost!')
+    console.log(`You lost! The correct flower was ${ word }`)
     playAgain()
   }
   if (word === showGuess(word, guesses)) {
-    console.log('You won!')
+    console.log(`You won! I hope you like the smell of ${ word }`)
     playAgain()
   }
 }
