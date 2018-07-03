@@ -1,30 +1,30 @@
-function exit(){
+const exit = () => {
   rl.close()
   process.exit()
 }
 
-function wrongGuessCount(word, guesses) {
+const wrongGuessCount = (word, guesses) => {
   return guesses.filter(guess => word.indexOf(guess) === -1).length
 }
 
-function showGuess(word, guesses) {
+const showGuess = (word, guesses) => {
  return word.split('').map(char =>
   { if (guesses.includes(char)) {
-     return char
+    return char
     }
     return '_'
   }).join('')
   rl.close()
 }
 
-function playAgain() {
+const playAgain = () => {
   rl.question('Do you want to play again (Y/N)? ', reply => {
-    if (reply === 'Y' || reply === 'y') { nextGuess('fancypants', []) }
+    if (reply === 'Y' || reply === 'y') { nextGuess(randomWord(), []) }
     else exit()
   })
 }
 
-function isWinner(word, guesses) {
+const isWinner = (word, guesses) => {
   if (wrongGuessCount(word, guesses) > 6) {
     console.log('You lost!')
     playAgain()
@@ -35,14 +35,14 @@ function isWinner(word, guesses) {
   }
 }
 
-function skipDuplicate(guesses, answer) {
+const skipDuplicate = (guesses, answer) => {
   if (guesses.includes(answer)) {
     console.log('You have already guessed this letter!')
     return true
   }
 }
 
-function printHangman(word, guesses) {
+const printHangman = (word, guesses) => {
   switch(wrongGuessCount(word, guesses)) {
     case 1:
       console.log('|------\n|\n|\n|\n|\n|')
@@ -70,22 +70,22 @@ function printHangman(word, guesses) {
 
 // read from the console
 const readline = require('readline')
-const rl = readline.createInterface({input:process.stdin, output:process.stdout})
+const rl = readline.createInterface({ input:process.stdin, output:process.stdout })
 
-function nextGuess(word, guesses) {
-    isWinner(word, guesses)
-    // ask for the next letter
-    rl.question('Guess a letter ', answer => {
-        console.log('player wrote:', answer)
-        answer.trim()
-        //wrong letter twice won't be counted the second time
-        if (skipDuplicate(guesses, answer)) return nextGuess(word, guesses)
-        guesses.push(answer[0])
-        console.log(showGuess(word, guesses))
-        console.log('Number of wrong guesses: ' + wrongGuessCount(word, guesses))
-        printHangman(word, guesses)
-        nextGuess(word, guesses)
-    })
+const nextGuess = (word, guesses) => {
+  isWinner(word, guesses)
+  // ask for the next letter
+  rl.question('Guess a letter ', answer => {
+    console.log('player wrote:', answer)
+    answer.trim()
+    //wrong letter twice won't be counted the second time
+    if (skipDuplicate(guesses, answer)) return nextGuess(word, guesses)
+    guesses.push(answer[0])
+    console.log(showGuess(word, guesses))
+    console.log('Number of wrong guesses: ' + wrongGuessCount(word, guesses))
+    printHangman(word, guesses)
+    nextGuess(word, guesses)
+  })
 }
 
 const word = ['sunflower',
@@ -109,9 +109,9 @@ const word = ['sunflower',
   'poppy',
   ]
 
-const RandomWord = () => {
+const randomWord = () => {
   let newWord = word[Math.floor(Math.random() * word.length)]
   return newWord
 }
 
-nextGuess(RandomWord(), [])
+nextGuess(randomWord(), [])
