@@ -74,6 +74,12 @@ const rl = readline.createInterface({ input:process.stdin, output:process.stdout
 
 const nextGuess = (word, guesses) => {
   isWinner(word, guesses)
+
+  //include a welcome message
+  if (guesses.length == 0) {
+    console.log('Welcome to my flowers hangman. Please choose a letter to guess the first flower.');
+  }
+
   // ask for the next letter
   rl.question('Guess a letter ', answer => {
     console.log('player wrote:', answer)
